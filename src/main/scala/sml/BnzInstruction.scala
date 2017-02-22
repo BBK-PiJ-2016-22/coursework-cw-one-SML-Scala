@@ -9,3 +9,9 @@ class BnzInstruction(label: String, op: String, val register: Int, val goto: Str
   override def toString(): String = super.toString()
 
 }
+
+object BnzInstruction{
+  def apply(label: String, register: Int, goto: String): Unit ={
+    new BnzInstruction(label, "bnz",register, goto)
+  }
+}
