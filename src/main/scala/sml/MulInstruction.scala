@@ -7,6 +7,7 @@ package sml
 class MulInstruction(label: String, op: String, val result: Int, val op1: Int, val op2: Int)
   extends Instruction(label, op){
 
+  override def getLabel: String = super.getLabel
 
   override def execute(m: Machine): Unit = {
     val value1 = m.regs(op1)
@@ -15,7 +16,7 @@ class MulInstruction(label: String, op: String, val result: Int, val op1: Int, v
 
   }
 
-  override def toString(): String = super.toString + " " + op1 + " * " + op2 + " to " + result
+  override def toString(): String = super.toString + " " + op1 + " * " + op2 + " to " + result + "\n"
 
 }
 

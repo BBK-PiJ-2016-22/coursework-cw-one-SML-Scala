@@ -6,6 +6,8 @@ package sml
 class SubInstruction(label: String, op: String, val result: Int, val op1: Int, val op2: Int)
   extends Instruction(label, op) {
 
+  override def getLabel: String = super.getLabel
+
   override def execute(m: Machine) {
     val value1 = m.regs(op1)
     val value2 = m.regs(op2)
@@ -13,7 +15,7 @@ class SubInstruction(label: String, op: String, val result: Int, val op1: Int, v
   }
 
   override def toString(): String = {
-    super.toString + " " + op1 + " - " + op2 + " to " + result
+    super.toString + " " + op1 + " - " + op2 + " to " + result + "\n"
   }
 }
 

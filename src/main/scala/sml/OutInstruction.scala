@@ -5,6 +5,8 @@ package sml
   */
 class OutInstruction(label: String, op: String, val register: Int ) extends Instruction(label, op){
 
+  override def getLabel: String = super.getLabel
+
   override def execute(m: Machine): Unit = {
     println(m.regs(register))
   }
@@ -14,5 +16,5 @@ class OutInstruction(label: String, op: String, val register: Int ) extends Inst
 
 object OutInstruction {
   def apply(label: String, result: Int) =
-    new OutInstruction(label, "add", result)
+    new OutInstruction(label, "out", result)
 }
