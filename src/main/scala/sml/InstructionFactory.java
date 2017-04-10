@@ -14,9 +14,11 @@ public class InstructionFactory {
     private static final String BNZ = "bnz";
     private static final String MUL = "mul";
     private static final String SUB = "sub";
+    private static final String DIV = "div";
     private static final String OUT = "out";
 
-    private List<String> opcode = Arrays.asList(ADD, LIN, MUL, SUB, OUT, BNZ);
+
+    private List<String> opcode = Arrays.asList(ADD, LIN, MUL, SUB, OUT, BNZ, DIV);
 
     public List<String> getOpcode() {
         return opcode;
@@ -32,6 +34,8 @@ public class InstructionFactory {
                 return mul(fields[0], MUL, fields[2], fields[3], fields[4]);
             case SUB :
                 return sub(fields[0], SUB, fields[2], fields[3], fields[4]);
+            case DIV :
+                return div(fields[0], DIV, fields[2], fields[3], fields[4]);
             case OUT :
                 return out(fields[0], OUT, fields[2]);
             case BNZ :
@@ -78,7 +82,6 @@ public class InstructionFactory {
         return (Instruction) constructor;
     }
 
-
     private Instruction mul(String label, String opcode, String result, String op1, String op2){
 
         Class<MulInstruction> reflectClass = MulInstruction.class;
@@ -98,7 +101,6 @@ public class InstructionFactory {
         return (Instruction) constructor;
     }
 
-
     private Instruction sub(String label, String opcode, String result, String op1, String op2){
 
         Class<SubInstruction> reflectClass = SubInstruction.class;
@@ -117,6 +119,28 @@ public class InstructionFactory {
 
         return (Instruction) constructor;
     }
+
+  private Instruction div(String label, String op, String result, String op1, String op2){
+
+    Class<DivInstruction> reflectClass = DivInstruction.class;
+
+    Object constructor = null;
+
+
+    //label: String, op: String, val result: Int, val op1: Int, val op2: Int)
+
+    try {
+      constructor =
+          reflectClass.getConstructor(String.class, String.class, int.class, int.class, int.class)
+              .newInstance(label,op, Integer.parseInt(result), Integer.parseInt(op1),
+                  Integer.parseInt(op2));
+
+    } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+      e.printStackTrace();
+    }
+
+    return (Instruction) constructor;
+  }
 
     private Instruction out(String label, String opcode, String register){
 
